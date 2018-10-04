@@ -3,7 +3,7 @@
 
 # HOST SECTION
 systemctl stop firewalld ; systemctl disable firewalld
-yum upgrade
+yum upgrade -y
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum-config-manager --add-repo http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.5.0/hdp.repo
