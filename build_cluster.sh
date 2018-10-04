@@ -19,6 +19,7 @@ cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys ; tar -cf keys.tar -C /root/
 
 
 # DOCKER SECTION
+cp /etc/yum.repos.d/ambari.repo ./ ; cp /etc/yum.repos.d/hdp.repo ./
 
 docker build --rm -t jpcloud/ssh:centos_hadoop .
 
