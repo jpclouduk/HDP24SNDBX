@@ -12,7 +12,7 @@ yum-config-manager --enable docker-ce-edge HDP-2.6.5.0 HDP-UTILS-1.1.0.22 ambari
 yum install -y docker-ce net-tools wget git
 systemctl start docker
 echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
-ssh-keygen -t rsa
+ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys ; tar -cf keys.tar -C /root/ .ssh
 
 
