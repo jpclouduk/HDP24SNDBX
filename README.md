@@ -1,2 +1,3 @@
-# HDP24SNDBX
-Centos VM Build with 5x docker nodes
+# HDP26DOCKER
+Centos VM Build with 4x docker nodes
+Use to run HDP build
