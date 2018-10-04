@@ -21,6 +21,8 @@ cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys ; tar -cf keys.tar -C /root/
 # DOCKER SECTION
 cp /etc/yum.repos.d/ambari.repo ./ ; cp /etc/yum.repos.d/hdp.repo ./
 
+docker network create --subnet=172.20.0.0/24 hadoop
+
 docker build --rm -t jpcloud/ssh:centos_hadoop .
 
 docker run -d --name node2 --net hadoop --ip 172.20.0.2 --hostname node2 --add-host node1:172.20.0.1 --add-host node3:172.20.0.3 --add-host node4:172.20.0.4 --add-host node5:172.20.0.5 -it jpcloud/ssh:centos_hadoop
