@@ -14,7 +14,7 @@ systemctl start docker
 echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
 ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys ; tar -cf keys.tar -C /root/ .ssh
-
+printf '172.20.0.1      node1\n172.20.0.2      node2\n172.20.0.3      node3\n172.20.0.4      node4\n172.20.0.5      node5' >> /etc/hosts
 
 
 
