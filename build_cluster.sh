@@ -10,6 +10,7 @@ yum-config-manager --add-repo http://public-repo-1.hortonworks.com/HDP/centos7/2
 yum-config-manager --add-repo http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.2.2/ambari.repo
 yum-config-manager --enable docker-ce-edge HDP-2.6.5.0 HDP-UTILS-1.1.0.22 ambari-2.6.2.2
 yum install -y docker-ce net-tools wget git
+systemctl enable docker.service
 systemctl start docker
 echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
 ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
