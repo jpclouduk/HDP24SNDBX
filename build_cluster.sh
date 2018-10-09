@@ -18,6 +18,15 @@ cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys ; tar -cf keys.tar -C /root/
 printf '172.20.0.1      node1\n172.20.0.2      node2\n172.20.0.3      node3\n172.20.0.4      node4\n172.20.0.5      node5' >> /etc/hosts
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 
+# PDSH
+wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+rpm -ivh epel-release-latest-7.noarch.rpm
+yum install -y pdsh
+export PDSH_RCMD_TYPE='ssh' >> ~/.bashrc
+export WCOLL='/etc/pdsh/machines'  >> ~/.bashrc
+mkdir /etc/pdsh
+printf 'node1\nnode2\nnode3\nnode4\nnode5' >> /etc/pdsh/machines
+
 
 # DOCKER SECTION
 cp /etc/yum.repos.d/ambari.repo ./ ; cp /etc/yum.repos.d/hdp.repo ./
