@@ -39,7 +39,7 @@ docker run -d --name node5 --net hadoop --ip 172.20.0.5 --hostname node5 --add-h
 
 ## HADOOP INSTALLATION
 yum install -y ambari-server
-ambari-server install -s
+ambari-server setup -s
 ambari-server setup --jdbc-db=mysql --jdbc-driver=/root/HDP26DOCKER/mysql-connector-java.jar
 ambari-server start
 
