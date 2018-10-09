@@ -41,6 +41,7 @@ docker run -d --name node5 --net hadoop --ip 172.20.0.5 --hostname node5 --add-h
 yum install -y ambari-server
 ambari-server install -s
 ambari-server setup --jdbc-db=mysql --jdbc-driver=/root/HDP26DOCKER/mysql-connector-java.jar
+ambari-server start
 
 pdsh 'yum install -y ambari-agent'
 pdsh "sed -i 's/localhost/node1/' /etc/ambari-agent/conf/ambari-agent.ini"
