@@ -44,6 +44,7 @@ ambari-server setup --jdbc-db=mysql --jdbc-driver=/root/HDP26DOCKER/mysql-connec
 ambari-server start
 
 . ~/.bashrc
+pdsh 
 pdsh 'yum install -y ambari-agent'
 pdsh "sed -i 's/localhost/node1/' /etc/ambari-agent/conf/ambari-agent.ini"
 pdsh "sed -i '/credential_shell_cmd/a force_https_protocol=PROTOCOL_TLSv1_2' /etc/ambari-agent/conf/ambari-agent.ini"
