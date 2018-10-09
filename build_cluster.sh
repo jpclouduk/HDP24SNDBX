@@ -22,8 +22,8 @@ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -ivh epel-release-latest-7.noarch.rpm
 yum install -y pdsh
-export PDSH_RCMD_TYPE='ssh' >> ~/.bashrc
-export WCOLL='/etc/pdsh/machines'  >> ~/.bashrc
+echo "export PDSH_RCMD_TYPE='ssh'" >> ~/.bashrc
+echo "export WCOLL='/etc/pdsh/machines'"  >> ~/.bashrc
 mkdir /etc/pdsh
 printf 'node1\nnode2\nnode3\nnode4\nnode5' >> /etc/pdsh/machines
 
