@@ -47,6 +47,7 @@ ambari-server start
 pdsh 'wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
 pdsh 'rpm -ivh epel-release-latest-7.noarch.rpm'
 pdsh 'yum install -y pdsh'
+pdcp /etc/yum.repos.d/ambari.repo /etc/yum.repos.d
 pdsh 'yum clean all'
 pdsh 'yum install -y ambari-agent'
 pdsh "sed -i 's/localhost/node1/' /etc/ambari-agent/conf/ambari-agent.ini"
