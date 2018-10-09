@@ -28,17 +28,21 @@ mkdir /etc/pdsh
 printf 'node1\nnode2\nnode3\nnode4\nnode5' >> /etc/pdsh/machines
 
 
-# DOCKER SECTION
+# DOCKER BUILD OUT
 cp /etc/yum.repos.d/ambari.repo ./ ; cp /etc/yum.repos.d/hdp.repo ./
-
 docker network create --subnet=172.20.0.0/16 hadoop
-
 docker build --rm -t jpcloud/ssh:centos_hadoop .
-
 docker run -d --name node2 --net hadoop --ip 172.20.0.2 --hostname node2 --add-host node1:172.20.0.1 --add-host node3:172.20.0.3 --add-host node4:172.20.0.4 --add-host node5:172.20.0.5 -it --cap-add SYS_ADMIN jpcloud/ssh:centos_hadoop
-
 docker run -d --name node3 --net hadoop --ip 172.20.0.3 --hostname node3 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node4:172.20.0.4 --add-host node5:172.20.0.5 -it --cap-add SYS_ADMIN jpcloud/ssh:centos_hadoop
-
 docker run -d --name node4 --net hadoop --ip 172.20.0.4 --hostname node4 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node3:172.20.0.3 --add-host node5:172.20.0.5 -it --cap-add SYS_ADMIN jpcloud/ssh:centos_hadoop
-
 docker run -d --name node5 --net hadoop --ip 172.20.0.5 --hostname node5 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node3:172.20.0.3 --add-host node4:172.20.0.4 -it --cap-add SYS_ADMIN jpcloud/ssh:centos_hadoop
+
+## HADOOP INSTALLATION
+yum install -y ambari-server
+ambari-server install -s
+ambari-server setup --jdbc-db=mysql --jdbc-driver=/root/HDP26DOCKER/mysql-connector-java.jar
+
+pdsh 'yum install -y ambari-agent'
+pdsh "sed -i 's/localhost/node1/' /etc/ambari-agent/conf/ambari-agent.ini"
+pdsh "sed -i '/credential_shell_cmd/a force_https_protocol=PROTOCOL_TLSv1_2' /etc/ambari-agent/conf/ambari-agent.ini"
+pdsh ambari-agent restart
