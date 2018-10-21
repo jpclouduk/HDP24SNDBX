@@ -8,7 +8,7 @@ yum upgrade -y
 wget http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.2.2/ambari-2.6.2.2-centos7.tar.gz -P /opt/
 wget http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.22/repos/centos6/HDP-UTILS-1.1.0.22-centos7.tar.gz -P /opt/
 wget http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.6.5.0/HDP-2.6.5.0-centos7-rpm.tar.gz -P /opt/
-cat /opt/*.tar.gz | tar -zxf - -i -C /opt/www/
+mkdir /opt/www ; cat /opt/*.tar.gz | tar -zxf - -i -C /opt/www/
 mkdir -p /opt/www/ambari/centos7/2.x/updates/2.6.2.2 ; mv /opt/www/ambari/centos7/2.6.2.2-1/* /opt/www/ambari/centos7/2.x/updates/2.6.2.2/
 mkdir -p /opt/www/HDP-UTILS-1.1.0.22/repos/centos7 ; mv /opt/www/HDP-UTILS/centos7/1.1.0.22/* /opt/www/HDP-UTILS-1.1.0.22/repos/centos7/
 mkdir -p /opt/www/HDP/centos7/2.x/updates/2.6.5.0 ; mv /opt/www/HDP/centos7/2.6.5.0-292/* /opt/www/HDP/centos7/2.x/updates/2.6.5.0/
