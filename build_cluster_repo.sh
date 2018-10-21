@@ -1,10 +1,11 @@
 
 # HOST BUILD 1
+hostname node1
 systemctl stop firewalld ; systemctl disable firewalld
-you install -y wget
+yum install -y wget
 yum upgrade -y
 
-# BUILD HWX REPO
+# BUILD HWX REPOS
 wget http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.2.2/ambari-2.6.2.2-centos7.tar.gz -P /opt/
 wget http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.22/repos/centos6/HDP-UTILS-1.1.0.22-centos7.tar.gz -P /opt/
 wget http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.6.5.0/HDP-2.6.5.0-centos7-rpm.tar.gz -P /opt/
