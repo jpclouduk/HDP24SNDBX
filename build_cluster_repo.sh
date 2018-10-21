@@ -1,15 +1,30 @@
 
-
-
-# HOST SECTION
+# HOST BUILD 1
 systemctl stop firewalld ; systemctl disable firewalld
+you install -y wget
 yum upgrade -y
+
+# BUILD HWX REPO
+wget http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.2.2/ambari-2.6.2.2-centos7.tar.gz -P /opt/
+wget http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.22/repos/centos6/HDP-UTILS-1.1.0.22-centos7.tar.gz -P /opt/
+wget http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.6.5.0/HDP-2.6.5.0-centos7-rpm.tar.gz -P /opt/
+
+tar -xf /opt/ambari-2.6.2.2-centos7.tar.gz -C /opt/www/
+tar -xf /opt/HDP-2.6.5.0-centos7-rpm.tar.gz -C /opt/www/
+tar -xf /opt/HDP-UTILS-1.1.0.22-centos7.tar.gz -C /opt/www/
+
+mv /opt/www/HDP-UTILS/centos6/1.1.0.22 /opt/www/HDP-UTILS/centos6/centos6
+mv /opt/www/HDP-UTILS/centos6 /opt/www/HDP-UTILS/repos
+mv /opt/www/HDP-UTILS /opt/www/HDP-UTILS-1.1.0.22
+
+# HOST BUILD 2
+
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum-config-manager --add-repo http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.5.0/hdp.repo
 yum-config-manager --add-repo http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.2.2/ambari.repo
 yum-config-manager --enable docker-ce-edge HDP-2.6.5.0 HDP-UTILS-1.1.0.22 ambari-2.6.2.2
-yum install -y docker-ce net-tools wget git
+yum install -y docker-ce net-tools git
 systemctl enable docker.service
 systemctl start docker
 echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
