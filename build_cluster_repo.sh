@@ -20,7 +20,6 @@ find /opt/www/ -name "*.repo" -exec sed -i 's/gpgcheck=1/gpgcheck=0/' {} \;
 # HOST BUILD 2
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum-config-manager --enable docker-ce-edge HDP-2.6.5.0 HDP-UTILS-1.1.0.22 ambari-2.6.2.2
 yum install -y docker-ce net-tools git
 systemctl enable docker.service
 systemctl start docker
