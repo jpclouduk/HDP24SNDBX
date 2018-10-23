@@ -27,6 +27,7 @@ echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
 ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys ; tar -cf keys.tar -C /root/ .ssh
 printf '172.20.0.1      node1\n172.20.0.2      node2\n172.20.0.3      node3\n172.20.0.4      node4\n172.20.0.5      node5\n172.20.0.10      hdprepo' >> /etc/hosts
+printf '*       soft    nofile  128000\n*       hard    nofile  128000' >> /etc/security/limits.d/20-nproc.conf
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 
 # PDSH
@@ -47,10 +48,10 @@ yum-config-manager --add-repo http://hdprepo/ambari/centos7/2.x/updates/2.6.2.2/
 # DOCKER NODES
 cp /etc/yum.repos.d/ambari.repo ./ ; cp /etc/yum.repos.d/hdp.repo ./
 docker build --rm -t jpcloud/ssh:centos_hadoop .
-docker run -d --name node2 --net hadoop --ip 172.20.0.2 --hostname node2 --add-host node1:172.20.0.1 --add-host node3:172.20.0.3 --add-host node4:172.20.0.4 --add-host node5:172.20.0.5 --add-host hdprepo:172.20.0.10 -it --cap-add SYS_ADMIN jpcloud/ssh:centos_hadoop
-docker run -d --name node3 --net hadoop --ip 172.20.0.3 --hostname node3 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node4:172.20.0.4 --add-host node5:172.20.0.5 --add-host hdprepo:172.20.0.10 -it --cap-add SYS_ADMIN jpcloud/ssh:centos_hadoop
-docker run -d --name node4 --net hadoop --ip 172.20.0.4 --hostname node4 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node3:172.20.0.3 --add-host node5:172.20.0.5 --add-host hdprepo:172.20.0.10 -it --cap-add SYS_ADMIN jpcloud/ssh:centos_hadoop
-docker run -d --name node5 --net hadoop --ip 172.20.0.5 --hostname node5 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node3:172.20.0.3 --add-host node4:172.20.0.4 --add-host hdprepo:172.20.0.10 -it --cap-add SYS_ADMIN jpcloud/ssh:centos_hadoop
+docker run -d --name node2 --net hadoop --ip 172.20.0.2 --hostname node2 --add-host node1:172.20.0.1 --add-host node3:172.20.0.3 --add-host node4:172.20.0.4 --add-host node5:172.20.0.5 --add-host hdprepo:172.20.0.10 -it --cap-add SYS_ADMIN --privileged jpcloud/ssh:centos_hadoop
+docker run -d --name node3 --net hadoop --ip 172.20.0.3 --hostname node3 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node4:172.20.0.4 --add-host node5:172.20.0.5 --add-host hdprepo:172.20.0.10 -it --cap-add SYS_ADMIN --privileged jpcloud/ssh:centos_hadoop
+docker run -d --name node4 --net hadoop --ip 172.20.0.4 --hostname node4 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node3:172.20.0.3 --add-host node5:172.20.0.5 --add-host hdprepo:172.20.0.10 -it --cap-add SYS_ADMIN --privileged jpcloud/ssh:centos_hadoop
+docker run -d --name node5 --net hadoop --ip 172.20.0.5 --hostname node5 --add-host node1:172.20.0.1 --add-host node2:172.20.0.2 --add-host node3:172.20.0.3 --add-host node4:172.20.0.4 --add-host hdprepo:172.20.0.10 -it --cap-add SYS_ADMIN --privileged jpcloud/ssh:centos_hadoop
 
 ## HADOOP INSTALLATION
 yum install -y ambari-server
