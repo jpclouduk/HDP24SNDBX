@@ -28,6 +28,7 @@ ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
 cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys ; tar -cf keys.tar -C /root/ .ssh
 printf '172.20.0.1      node1\n172.20.0.2      node2\n172.20.0.3      node3\n172.20.0.4      node4\n172.20.0.5      node5\n172.20.0.10      hdprepo' >> /etc/hosts
 printf '*       soft    nofile  128000\n*       hard    nofile  128000' >> /etc/security/limits.d/20-nproc.conf
+ulimit -n 128000
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 
 # PDSH
