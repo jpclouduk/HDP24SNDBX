@@ -1,4 +1,5 @@
 
+
 # HOST BUILD 1
 hostname node1
 systemctl stop firewalld ; systemctl disable firewalld
