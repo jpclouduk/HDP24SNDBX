@@ -1,9 +1,0 @@
-#VERSION_NUMBER=2.6.2.2-1
-[ambari-2.6.2.2]
-name=ambari Version - ambari-2.6.2.2
-baseurl=http://hdprepo/ambari/centos7/2.x/updates/2.6.2.2
-gpgcheck=0
-gpgkey=http://hdprepo/ambari/centos7/2.x/updates/2.6.2.2/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
-enabled=1
-priority=1
-
