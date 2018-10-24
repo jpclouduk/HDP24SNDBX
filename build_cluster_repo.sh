@@ -2,6 +2,7 @@
 
 # HOST BUILD 1
 hostname node1
+echo "node1" > /etc/hostname
 systemctl stop firewalld ; systemctl disable firewalld
 yum install -y wget
 yum upgrade -y
