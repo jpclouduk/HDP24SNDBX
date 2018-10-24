@@ -73,3 +73,8 @@ pdsh 'yum install -y ambari-agent'
 pdsh "sed -i 's/localhost/node1/' /etc/ambari-agent/conf/ambari-agent.ini"
 pdsh "sed -i '/credential_shell_cmd/a force_https_protocol=PROTOCOL_TLSv1_2' /etc/ambari-agent/conf/ambari-agent.ini"
 pdsh ambari-agent restart
+
+# BUILD 5 NODE HDP01 CLUSTER
+curl -H "X-Requested-By: ambari" -X POST -u admin:admin http://node1:8080/api/v1/blueprints/HDP01 -d @HDP01.json
+curl -H "X-Requested-By: ambari" -X POST -u admin:admin http://node1:8080/api/v1/clusters/HDP01 -d @HDP01_hostmapping.json
+
