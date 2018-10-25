@@ -16,7 +16,7 @@ rm -f /lib/systemd/system/anaconda.target.wants/*;
 VOLUME [ "/sys/fs/cgroup" ]
 
 RUN yum -y update; yum clean all; yum -y install openssh-server openssh-clients passwd tar wget; yum clean all ; systemctl enable sshd.service
-RUN sed -i 's/prohibit-password/yes/' /etc/ssh/sshd_config ; RUN echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config ; RUN sed -i 's/tsflags/#tsflags/' /etc/yum.conf 
+RUN sed -i 's/prohibit-password/yes/' /etc/ssh/sshd_config ; echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config ; sed -i 's/tsflags/#tsflags/' /etc/yum.conf 
 ADD ./keys.tar /root
 ADD *.repo /etc/yum.repos.d/
 RUN mkdir /var/run/sshd
