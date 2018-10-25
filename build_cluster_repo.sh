@@ -32,7 +32,7 @@ printf '172.20.0.1      node1\n172.20.0.2      node2\n172.20.0.3      node3\n172
 printf '*       soft    nofile  128000\n*       hard    nofile  128000' >> /etc/security/limits.d/20-nproc.conf
 ulimit -n 128000
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
-sed -i 's/localhost/node1/' /etc/ambari-agent/conf/ambari-agent.ini"
+sed -i 's/localhost/node1/' /etc/ambari-agent/conf/ambari-agent.ini
 
 
 # PDSH
