@@ -46,7 +46,7 @@ printf 'node1\nnode2\nnode3\nnode4\nnode5' >> /etc/pdsh/machines
 
 # DOCKER HTTP INSTALL
 docker network create --subnet=172.20.0.0/16 hadoop
-docker run -dit --name hdprepo --net hadoop --ip 172.20.0.10 --hostname hdprepo -p 8080:80 -v /opt/www/:/usr/local/apache2/htdocs/ httpd:2.4
+docker run -dit --name hdprepo --net hadoop --ip 172.20.0.10 --hostname hdprepo -p 80:80 -v /opt/www/:/usr/local/apache2/htdocs/ httpd:2.4
 yum-config-manager --add-repo http://hdprepo/HDP/centos7/2.x/updates/2.6.5.0/hdp.repo
 yum-config-manager --add-repo http://hdprepo/ambari/centos7/2.x/updates/2.6.2.2/ambari.repo
 
