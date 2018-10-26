@@ -21,8 +21,7 @@ yum clean all ; systemctl enable sshd.service ; \
 sed -i 's/prohibit-password/yes/' /etc/ssh/sshd_config ; \
 echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config ; \
 sed -i 's/tsflags/#tsflags/' /etc/yum.conf ; \
-mkdir /var/run/sshd ; \
-rm /var/run/nologin
+mkdir /var/run/sshd
 ADD ./keys.tar /root
 ADD *.repo /etc/yum.repos.d/
 
