@@ -15,10 +15,15 @@ rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 VOLUME [ "/sys/fs/cgroup" ]
 
-RUN yum -y update; yum clean all; yum -y install openssh-server openssh-clients passwd tar wget; yum clean all ; systemctl enable sshd.service
-RUN sed -i 's/prohibit-password/yes/' /etc/ssh/sshd_config ; echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config ; sed -i 's/tsflags/#tsflags/' /etc/yum.conf 
+RUN yum -y update; yum clean all; \
+yum -y install openssh-server openssh-clients passwd tar wget; \
+yum clean all ; systemctl enable sshd.service ; \
+sed -i 's/prohibit-password/yes/' /etc/ssh/sshd_config ; \
+echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config ; \
+sed -i 's/tsflags/#tsflags/' /etc/yum.conf ; \
+mkdir /var/run/sshd ; \
+rm /var/run/nologin
 ADD ./keys.tar /root
 ADD *.repo /etc/yum.repos.d/
-RUN mkdir /var/run/sshd
 
 CMD ["/usr/sbin/init"]
